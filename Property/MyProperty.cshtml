@@ -1,0 +1,57 @@
+﻿@using Resources;
+@using Realty;
+@{Page.Title = @LangResource.PropertySearch;}
+@{
+    int UserID = WebSecurity.GetUserId(WebSecurity.CurrentUserName);
+    var result = Search.getUserProperty(Culture,UserID);
+    var propertyGrid = new WebGrid(source: result,rowsPerPage: 10);
+}
+<link href="@Href("~/Css/Grid.css")" rel="stylesheet" />
+<h1>@LangResource.MyProperties</h1>
+<div id="grid">
+@propertyGrid.GetHtml(
+tableStyle: "grid",
+headerStyle: "header",
+alternatingRowStyle: "alt",
+mode: WebGridPagerModes.All,
+firstText: @LangResource.First,
+previousText: @LangResource.Prev,
+nextText: @LangResource.Next,
+lastText: @LangResource.Last,
+columns: propertyGrid.Columns(
+propertyGrid.Column(format:
+ @<img src="@Href("~/images/property/"+ @item.PictureGUID + ".jpeg")" alt="Image " height="60" width="91"/>),
+propertyGrid.Column(@LangResource.Address,
+style: "name",
+format: @<a href="MyPropertyEdit?PropertyId=@item.PropertyId" >
+@item.Address<br>
+@if(@item.Address2!=""){ @item.Address2<br>}
+@item.City<br>
+@item.State
+@item.ZipCode
+</a>),
+propertyGrid.Column(@LangResource.Price,
+format: @<text>
+@Realty.Html.Currency(item.Price)
+</text>),
+propertyGrid.Column(@LangResource.Status,
+format: @<text>
+@item.Status
+</text>),
+propertyGrid.Column(@LangResource.Type,
+format: @<text>
+@item.Type
+</text>),
+propertyGrid.Column(@LangResource.Bedrooms,
+format: @<text>
+@item.Bedrooms
+</text>),
+propertyGrid.Column(@LangResource.Bathrooms,
+format: @<text>
+@item.Bathrooms
+</text>)
+)
+)
+</div>
+
+

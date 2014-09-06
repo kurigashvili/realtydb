@@ -1,0 +1,16 @@
+﻿@using Resources;
+@{ <div id="accountSummary">
+@if(WebSecurity.IsAuthenticated) {
+<p>
+@LangResource.Welcome <a href="@Href("~/Members/EditAccount")">@WebSecurity.CurrentUserName</a> |
+<a href="@Href("~/Property/MyProperty")">@LangResource.MyProperties</a> |
+<a href="@Href("~/Account/Logout")">@LangResource.Logout</a>
+</p>
+} else {
+<p>
+<a href="@Href("~/Account/Login")">@LangResource.Login</a> |
+<a href="@Href("~/Account/Register")">@LangResource.Register</a>
+</p>
+}
+</div>
+}

@@ -1,0 +1,97 @@
+﻿@using Resources;
+@using Realty;
+@{Page.Title = @LangResource.PropertyInfo;}
+@{
+string lang = Culture;     
+int PropertyId=0;
+PropertyId=DataConversion.tryCastInt(PropertyId,"PropertyId");
+if (PropertyId==0){Response.Redirect("/Default");}
+
+var result = Property.getPropertyDetails(lang,PropertyId);
+var pictures =Property.getPropertyPictures(PropertyId);
+var phistory = Property.getPriceHistory(PropertyId);
+string pictureFormat=".jpeg";
+}
+@if(Enumerable.Count(pictures)>0)
+{
+<ul class="bxslider">
+    @foreach (var picture in pictures)
+{
+ <li><img alt="property photo" src="/images/property/@picture.PictureGUID@pictureFormat" /></li>
+}
+</ul>
+}
+<link href="@Href("~/Css/Grid.css")" rel="stylesheet" />
+<table id="propertyDetails">
+<tr>
+    <th></th>
+    <th>@Html.Label(@result.Status, "status",new { @class = "status" })</th>
+</tr>
+<tr class="propertyMain">  
+    <td>@result.Address @result.Address2</td> 
+    <td>@Realty.Html.Currency(result.Price)</td> 
+</tr>
+<tr class="propertyMain" > 
+      <td>@result.City @result.State @result.Zipcode</td>
+</tr>
+</table>
+<table id="propertyBulletPoints">
+<tr >  
+    <td>@LangResource.Bedrooms: @result.Bedrooms</td> 
+    <td>@LangResource.LivingArea: @result.LivingArea</td>
+</tr>
+<tr>   
+    <td>@LangResource.Bathrooms: @result.Bathrooms</td> 
+    <td>@LangResource.PropertyType: @result.Type    </td>
+</tr>
+</table>
+
+<table id="postedByTable">
+<tr>
+ <th>@LangResource.PostedBy</th>
+</tr>
+<tr>   
+<td>@result.PostedByFirstName @result.PostedByLastName</td> 
+</tr>
+<tr>   
+<td>
+<a href="mailto:@result.PostedByEmail" >@result.PostedByEmail</a></td> 
+</tr>
+<tr>   
+<td> @Realty.Html.PhoneNumber(@result.PostedByPhoneNumber)</td> 
+</tr>
+<tr>
+ <th colspan="2" >@LangResource.PriceHistory</th>
+</tr>
+<tr>
+  <th>@LangResource.Price</th>
+  <th>@LangResource.DateTime</th>		
+</tr>
+@foreach(var p in phistory ){
+<tr>   
+<td>@Realty.Html.Currency(p.Price)</td> 
+<td>@p.TimeStamp</td> 
+</tr>    
+}
+
+</table>
+
+@*
+<div id="grid">
+@priceHistoryGrid.GetHtml(
+tableStyle: "grid",
+headerStyle: "header",
+alternatingRowStyle: "alt",
+mode: WebGridPagerModes.All,
+columns: priceHistoryGrid.Columns(
+priceHistoryGrid.Column(@LangResource.Price,
+format: @<text>
+@item.Price.ToString("C0",System.Globalization.CultureInfo.CreateSpecificCulture("en-US"))
+</text>),
+priceHistoryGrid.Column(@LangResource.Status,
+format: @<text>
+@item.TimeStamp
+</text>)
+)
+)
+</div>*@

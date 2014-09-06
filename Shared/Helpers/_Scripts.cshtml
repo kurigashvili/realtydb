@@ -1,0 +1,20 @@
+﻿<script>
+    $(document).ready(function () {
+        $("input[name='lang']").click(function () {
+            var lang = $("input[name='lang']:checked").val();
+            $.get(window.location, { lang: lang },
+            function (status) {
+                location.reload();
+            }
+            )
+        })
+
+     $('.bxslider').bxSlider({
+    slideWidth: 485,
+    adaptiveHeight:true,
+    minSlides: 1,
+    maxSlides: 1,
+    slideMargin: 10
+  });
+    })
+ </script>

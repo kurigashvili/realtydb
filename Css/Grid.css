@@ -1,0 +1,7 @@
+.grid { margin: 4px; border-collapse: collapse; width: 700px; }
+.grid th, .grid td { border: 1px solid #CCC; padding: 5px; }
+.header { background-color: #DDD; font-weight: bold; }
+.header a { text-decoration: none; }
+.alt { background-color: #EEE; color: #000; }
+.name { width: 150px; }
+.role { width: 200px; font-style: italic; }

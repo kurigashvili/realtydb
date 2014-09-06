@@ -1,0 +1,20 @@
+﻿@using Resources;
+@{<div id="language" >
+    @if(!WebSecurity.IsAuthenticated) {
+        <form  >
+            <input name="lang" type="radio" id="radio1" value="en-GB"   @(Culture == "en-GB" ? "checked=\"checked\"" : "")><label for="radio1" >English</label>
+            <input name="lang" type="radio" id="radio2" value ="ru-RU"   @(Culture == "ru-RU" ? "checked=\"checked\"" : "")><label for="radio2" >Русский</label>
+        </form>
+    
+   }
+          else{
+          <p>
+          
+          <a href="@Href("~/Members/EditAccount")">@LangResource.LanguagePreference</a>
+          </p>    
+
+
+          }
+    
+</div>
+          }

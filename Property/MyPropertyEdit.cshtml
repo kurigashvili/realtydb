@@ -1,0 +1,129 @@
+﻿@using Resources;
+@using Realty;
+@{Page.Title = @LangResource.PropertyInfo;}
+@{
+IHtmlString cm=null;      
+Property pr= new Property();
+int UserID = WebSecurity.GetUserId(WebSecurity.CurrentUserName); 
+ int PropertyId=-1;
+ if (!IsPost){
+      PropertyId= DataConversion.tryCastInt(PropertyId,"PropertyId");
+        try{
+        pr = new Property(PropertyId);
+        }
+        catch{
+            Response.Redirect("~/Default");
+        }
+ if(pr.PostedById!=UserID){
+     Response.Redirect("~/Default");}
+     }
+   
+List<SelectListItem> propertyTypeList=Property.PropertyType(Culture,pr.PropertyTypeId,false);
+List<SelectListItem> propertyStatusList=Property.PropertyStatus(Culture,pr.PropertyStatusId,false);
+
+if(IsPost)
+{
+pr.Id=DataConversion.tryCastInt(pr.Id,"propertyid");
+pr.StreetNumber=Request["street_number"];
+pr.StreetName=Request["route"];
+pr.AddressLine2=Request["address2"];
+pr.City=Request["locality"];
+pr.State=Request["administrative_area_level_1"];
+pr.ZipCode=Request["postal_code"];
+pr.Country=Request["country"];
+pr.Bedrooms=DataConversion.tryCastInt(pr.Bedrooms,"bedroom");
+pr.Bathrooms=DataConversion.tryCastInt(pr.Bedrooms,"bathroom");
+pr.LivingArea=DataConversion.tryCastInt(pr.LivingArea,"feet");
+pr.Price=DataConversion.tryCastDecimal(pr.Price,"price");
+pr.PropertyTypeId=DataConversion.tryCastInt(pr.PropertyTypeId,"propertytype");
+pr.PropertyStatusId=DataConversion.tryCastInt(pr.PropertyStatusId,"propertystatus");
+propertyTypeList=Property.PropertyType(Culture,pr.PropertyTypeId,false);
+propertyStatusList=Property.PropertyStatus(Culture,pr.PropertyStatusId,false);
+// validation
+if (pr.StreetName.IsEmpty()) { ModelState.AddError("route", LangResource.StreetNotEmpty);}
+if (pr.City.IsEmpty()) { ModelState.AddError("locality", LangResource.CityNotEmpty);}
+if (pr.State.IsEmpty()) { ModelState.AddError("administrative_area_level_1", LangResource.StateNotEmpty);}
+if (pr.ZipCode.IsEmpty()) { ModelState.AddError("postal_code", LangResource.ZipNotEmpty);}
+if (pr.Country.IsEmpty()) { ModelState.AddError("country", LangResource.CountryNotEmpty);}
+if (pr.Bedrooms<0) { ModelState.AddError("bedroom", LangResource.BedroomNotNeg);}
+if (pr.Bathrooms<0) { ModelState.AddError("bathroom", LangResource.BathroomNotNeg);}
+if (pr.LivingArea<0) { ModelState.AddError("feet", LangResource.LivingAreaNotNeg);}
+if (pr.Price<0) { ModelState.AddError("price", LangResource.PriceNotNeg);}
+
+if(ModelState.IsValid){
+ pr.Update();
+cm = Realty.Html.ConfirmationMessage(LangResource.ChangesSaved);
+}
+}
+}
+<h1>@LangResource.PostProperty</h1>
+@Html.ValidationSummary()
+@cm
+<form action="MyPropertyEdit?@Request.QueryString" method="post" enctype="multipart/form-data" class="accountForm">
+@RenderPage("~/Property/_AddressSearch.cshtml")
+<table id="address">
+<tr>
+    <th colspan="2">@LangResource.Address</th>
+</tr>
+<tr>
+       <td>@Html.Label(LangResource.Street, "street_number")</td>
+       <td>@Html.TextBox("street_number", pr.StreetNumber)
+           @Html.TextBox("route", pr.StreetName)</td> 
+</tr>
+<tr>
+      <td>@Html.Label(LangResource.AptNo, "address2")</td>
+      <td>@Html.TextBox("address2", pr.AddressLine2)</td>
+</tr>
+<tr>
+      <td>@Html.Label(LangResource.City, "locality")</td>
+      <td>@Html.TextBox("locality", pr.City)</td>
+</tr>
+<tr>
+     <td>@Html.Label(LangResource.State, "administrative_area_level_1")</td>
+     <td>@Html.TextBox("administrative_area_level_1", pr.State)</td>
+</tr>
+<tr>
+     <td>@Html.Label(LangResource.Zipcode, "postal_code")</td>
+     <td>@Html.TextBox("postal_code", pr.ZipCode)</td>
+</tr>
+<tr>
+     <td>@Html.Label(LangResource.Country, "country")</td>
+     <td>@Html.TextBox("country", pr.Country)</td>    
+</tr>
+    </table>
+<table id="propertyinfo">
+<tr>
+    <th colspan="2">@LangResource.PropertyInfo</th>
+</tr>
+<tr>
+    <th>@Html.Label(LangResource.Bedrooms, "bedroom")</th>
+    <th>@Html.Label(LangResource.Bedrooms, "bathroom")</th>
+</tr>
+<tr>
+    <td>@Html.TextBox("bedroom", pr.Bedrooms,new { @type = "number" })</td>
+    <td>@Html.TextBox("bathroom", pr.Bathrooms,new { @type = "number" })</td>
+</tr>
+<tr>
+     <th>@Html.Label(LangResource.LivingArea, "feet")</th>
+     <th>@Html.Label(LangResource.Price+" $", "price")</th>
+</tr>
+<tr>
+     <td>@Html.TextBox("feet", pr.LivingArea,new { @type = "number" })</td>
+     <td>@Html.TextBox("price", Math.Round(pr.Price),new { @type = "number" })</td>
+</tr>
+<tr>
+     <th>@Html.Label(LangResource.PropertyType, "propertytype")</th>
+     <th>@Html.Label(LangResource.PropertyStatus, "propertystatus")</th>
+</tr>
+<tr>
+     <td>@Html.DropDownList("propertytype", null, propertyTypeList)</td>
+     <td>@Html.DropDownList("propertystatus", null, propertyStatusList)</td>
+</tr>
+</table>
+<p>
+<input type="submit" value="@LangResource.Save" />
+
+<a id="manageimages" href="MyPropertyPhoto?PropertyId=@pr.Id">@LangResource.ManagePictures</a>
+</p>
+</form>
+ 

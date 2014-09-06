@@ -1,0 +1,21 @@
+﻿@using Resources;
+@{Page.Title = @LangResource.ConfirmAccount;}
+@{    
+bool confirmed = false;
+var confirmationToken = Request["confirmationToken"];
+WebSecurity.Logout();
+// Attempt account confirmation
+if (!confirmationToken.IsEmpty()) {
+if (WebSecurity.ConfirmAccount(confirmationToken)) {
+confirmed = true;}}}
+<h1>@Page.Title</h1>
+@if (confirmed)
+{
+<p>
+@LangResource.ConfirmAccountSuccess
+<a href="../Account/Login">@LangResource.Login</a>.
+</p>
+}
+else
+{
+<p>@LangResource.ConfirmAccountFailure.</p>}

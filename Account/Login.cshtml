@@ -1,0 +1,64 @@
+﻿@using Resources;
+@{Page.Title = @LangResource.Login;}
+@{
+var username = "";
+var password = "";
+if(IsPost)
+{
+username = Request["username"];
+password = Request["password"];
+var rememberMe = Request["rememberMe"].AsBool();
+// Validation
+if (username.IsEmpty()) {
+ModelState.AddError("username", LangResource.UsernameNotBlank);
+}
+if (password.IsEmpty()) {
+ModelState.AddError("password", LangResource.PasswordNotBlank);
+}
+// Attempt login
+if(ModelState.IsValid)
+{
+if(WebSecurity.Login(username, password, rememberMe))
+{
+if (Request.QueryString["sender"] != null)
+{
+Response.Redirect(Request.QueryString["sender"]);
+}
+else
+{
+Response.Redirect("~/default");
+}
+}
+else
+{
+ModelState.AddFormError(LangResource.UnableLogIn);
+}
+}
+}
+}
+<h1>@LangResource.Login</h1>
+@Html.ValidationSummary(true)
+<form action="login?@Request.QueryString" method="post">
+<div>
+@Html.Label(LangResource.Username, "username")<br />
+@Html.TextBox("username", username)
+@Html.ValidationMessage("username")
+</div>
+<div>
+@Html.Label(LangResource.Password, "password")<br />
+@Html.Password("password")
+@Html.ValidationMessage("password")
+</div>
+<div>
+@Html.CheckBox("rememberMe", new { value = "true" })
+@Html.Label(LangResource.RememberMe, "rememberMe")
+</div>
+<div>
+<input type="submit" value=@LangResource.Login />
+</div>
+</form>
+@*
+<div>
+</p><a href="../Account/ForgotPassword">@LangResource.ForgottenPasswordQuestion</a></p>
+</div>
+*@

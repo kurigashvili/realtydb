@@ -1,0 +1,12 @@
+﻿@using Resources;
+@{Page.Title = LangResource.Home;}
+@{
+    var query="";
+}
+
+<form id="queryForm" action="/Search/Search.cshtml" method="get">
+@Html.TextBox("query",query,new {placeholder =LangResource.QuickSearchMessage } )
+<input type="Submit" value=@LangResource.Search />
+</form>
+
+ @*@RenderPage("~/Carousel/simple-fade-slideshow.source.cshtml")*@

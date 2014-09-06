@@ -1,0 +1,134 @@
+﻿@using Resources;
+@using Realty;
+@{Page.Title = @LangResource.PropertySearch;}
+
+@{
+    string lang = Culture;
+    string query="";
+    List<SelectListItem> propertyTypeList=Property.PropertyType(Culture,0);
+    List<SelectListItem> propertyStatusList=Property.PropertyStatus(Culture,0); 
+    List<SelectListItem> bedroomList=Property.BedroomList();
+    List<SelectListItem> bathroomList=Property.BathroomList();
+    List<SelectListItem> livingareaList=Property.LivigArea();
+    Search s = new Search();    
+    var result = s.getSearchResults(lang);
+    var propertyGrid = new WebGrid(source: result,rowsPerPage: 10);
+
+if(!IsPost){
+    if(Request["query"]!=null){result = s.getSearchResults(lang,Request["query"]);
+    propertyGrid = new WebGrid(source: result,rowsPerPage: 10);
+    }
+else{
+s = new Search();
+s.route=Request["route"];
+s.locality=Request["locality"];
+s.administrative_area_level_1=Request["administrative_area_level_1"];
+s.postal_code=Request["postal_code"];
+s.bedroom=DataConversion.tryCastInt(s.bedroom,"bedroom");
+s.bathroom=DataConversion.tryCastInt(s.bathroom,"bathroom");
+s.livingarea=DataConversion.tryCastInt(s.livingarea,"livingarea");
+s.minprice=DataConversion.tryCastDouble(s.minprice,"minprice");
+s.maxprice=DataConversion.tryCastDouble(s.maxprice,"maxprice");
+s.propertytype=DataConversion.tryCastInt(s.propertytype,"propertytype");
+s.propertystatus=DataConversion.tryCastInt(s.propertystatus,"propertystatus");
+propertyTypeList=Property.PropertyType(Culture,s.propertytype);
+propertyStatusList=Property.PropertyStatus(Culture,s.propertystatus); 
+bedroomList=Property.BedroomList(s.bedroom);
+bathroomList=Property.BathroomList(s.bathroom);
+livingareaList=Property.LivigArea(s.livingarea);
+
+result = s.getSearchResults(lang);
+propertyGrid = new WebGrid(source: result,rowsPerPage: 10);
+}
+}
+}
+<link href="@Href("~/Css/Grid.css")" rel="stylesheet" />
+<h1>@LangResource.PropertySearch</h1>
+<form  method="get"  id="searchForm "class="accountForm">
+<table id="address">
+<tr>
+    <th>@Html.Label(LangResource.Street, "street_number")</th>
+    <th>@Html.Label(LangResource.City, "locality")</th>
+    <th>@Html.Label(LangResource.State, "administrative_area_level_1")</th>
+    <th>@Html.Label(LangResource.Zipcode, "postal_code")</th>
+</tr>
+<tr>
+    <td>@Html.TextBox("route", s.route)</td> 
+    <td>@Html.TextBox("locality", s.locality)</td>
+    <td>@Html.TextBox("administrative_area_level_1", s.administrative_area_level_1)</td>
+    <td>@Html.TextBox("postal_code", s.postal_code)</td>
+</tr>
+
+<tr>
+    <th>@Html.Label(LangResource.Bedrooms, "bedroom")</th>
+    <th>@Html.Label(LangResource.Bathrooms, "bathroom")</th>
+    <th>@Html.Label(LangResource.LivingArea, "livigarea")</th>
+    <th>@Html.Label(LangResource.MinMaxPrice+" $", "price")</th>
+</tr>
+<tr>
+    <td>@Html.DropDownList("bedroom", null, bedroomList)</td>
+    <td>@Html.DropDownList("bathroom", null, bathroomList)</td>
+    <td>@Html.DropDownList("livingarea", null, livingareaList)</td>
+    <td>@Html.TextBox("minprice", s.minprice,new { @type = "number" })
+        @Html.TextBox("maxprice", s.maxprice,new { @type = "number" })</td>
+</tr>
+<tr>
+     <th>@Html.Label(LangResource.PropertyType, "propertytype")</th>
+     <th>@Html.Label(LangResource.PropertyStatus, "propertystatus")</th>
+</tr>
+<tr>
+     <td>@Html.DropDownList("propertytype", null, propertyTypeList)</td>
+     <td>@Html.DropDownList("propertystatus", null, propertyStatusList)</td>
+</tr>
+</table>
+<input type="submit" value="@LangResource.Search" />
+
+<div id="grid">
+@propertyGrid.GetHtml(
+tableStyle: "grid",
+headerStyle: "header",
+alternatingRowStyle: "alt",
+mode: WebGridPagerModes.All,
+firstText: @LangResource.First,
+previousText: @LangResource.Prev,
+nextText: @LangResource.Next,
+lastText: @LangResource.Last,
+
+columns: propertyGrid.Columns(
+
+propertyGrid.Column(format:
+ @<img src="@Href("~/images/property/"+ @item.PictureGUID + ".jpeg")" alt="Image " height="60" width="91"/>),
+
+propertyGrid.Column(@LangResource.Address,
+style: "name",
+format: @<a href="PropertyDetails?PropertyId=@item.PropertyId" >
+@item.Address<br>
+@if(@item.Address2!=""){ @item.Address2<br>}
+@item.City<br>
+@item.State
+@item.ZipCode
+</a>),
+propertyGrid.Column(@LangResource.Price,
+format: @<text>
+@Realty.Html.Currency(item.Price)
+</text>),
+propertyGrid.Column(@LangResource.Status,
+format: @<text>
+@item.Status
+</text>),
+propertyGrid.Column(@LangResource.Type,
+format: @<text>
+@item.Type
+</text>),
+propertyGrid.Column(@LangResource.Bedrooms,
+format: @<text>
+@item.Bedrooms
+</text>),
+propertyGrid.Column(@LangResource.Bathrooms,
+format: @<text>
+@item.Bathrooms
+</text>)
+)
+)
+</div>
+</form>

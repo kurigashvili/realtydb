@@ -1,0 +1,77 @@
+﻿@using Resources;
+@using Realty;
+@{Page.Title = @LangResource.EditAccount;}
+@{
+ IHtmlString cm=null;    
+int UserID = WebSecurity.GetUserId(WebSecurity.CurrentUserName);  
+var rs = Realty.User.getUserProfile(UserID);  
+String firstname=rs.FirstName;String lastname=rs.LastName;
+String phone=rs.PhoneNumber;String email=rs.UserName;
+int languageid=rs.LanguageId;
+
+List<SelectListItem> languageList=Language.getLanguage(languageid);
+if(IsPost)
+{
+AntiForgery.Validate();
+firstname=Request["firstname"];
+lastname=Request["lastname"];
+phone=DataConversion.getNumericOnly(Request["phone"]);
+email = Request["email"];
+int result;
+languageid =(Int32.TryParse(Request["languageid"],out result)) ? result : rs.LanguageId;
+
+
+// Validation
+if (firstname.IsEmpty()) { ModelState.AddError("firstname", @LangResource.FirstNameError);}
+if (lastname.IsEmpty()) {ModelState.AddError("lastname", @LangResource.LastNameError);}
+if (phone.IsEmpty()) {ModelState.AddError("phone", @LangResource.PhoneNumberError);}
+if (email.IsEmpty()) {ModelState.AddError("email", @LangResource.EmailAddressRequired);}
+if (!Realty.Validation.IsValidEmail(email)){ModelState.AddError("email",@LangResource.EmailAddressInvalid);}
+if(WebSecurity.UserExists(email)&&WebSecurity.CurrentUserName!=email
+){ModelState.AddError("email", @LangResource.EmailAddressExist);}
+
+// Create Account
+if(ModelState.IsValid)
+{
+if(WebSecurity.CurrentUserName!=email) {WebSecurity.Logout();}
+
+Realty.User.setUserProfile(email,firstname,lastname,phone,languageid,UserID);
+languageList=Language.getLanguage(languageid);
+cm = Realty.Html.ConfirmationMessage(LangResource.ChangesSaved);
+}}}
+<h1>@LangResource.EditAccount</h1>
+@cm
+<form action="editAccount?@Request.QueryString" method="post" class="accountForm">
+@AntiForgery.GetHtml()
+<p>
+@Html.Label(@LangResource.FirstName, "firstname")<br />
+@Html.TextBox("firstname", firstname)
+@Html.ValidationMessage("firstname")
+</p>
+<p>
+@Html.Label(@LangResource.LastName, "lastname")<br />
+@Html.TextBox("lastname", lastname)
+@Html.ValidationMessage("lastname")
+</p>
+<p>
+@Html.Label(@LangResource.PhoneNumber, "phone")<br />
+@Html.TextBox("phone", @Realty.Html.PhoneNumber(phone))
+@Html.ValidationMessage("phone")
+</p>
+<p>
+@Html.Label(@LangResource.EmailAddress, "email")<br />
+@Html.TextBox("email", email)
+@Html.ValidationMessage("email")
+</p>
+<p>
+@Html.Label(@LangResource.PreferedLanguage, "languageid")<br />
+
+@Html.DropDownList("languageid", null, languageList)
+</p>
+    <p>
+<a href="@Href("~/Members/ChangePassword")">@LangResource.ChangePassword</a>
+        </p>
+<p>
+<input type="submit" value="@LangResource.Save" />
+</p>
+</form>

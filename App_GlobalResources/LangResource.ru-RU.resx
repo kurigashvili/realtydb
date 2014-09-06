@@ -1,0 +1,414 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Address" xml:space="preserve">
+    <value>Адрес</value>
+  </data>
+  <data name="Bathrooms" xml:space="preserve">
+    <value>Ваных комнат</value>
+  </data>
+  <data name="Bedrooms" xml:space="preserve">
+    <value>Спальных комнат</value>
+  </data>
+  <data name="ConfirmAccount" xml:space="preserve">
+    <value>Подтвердите регистрацию</value>
+  </data>
+  <data name="ConfirmAccountFailure" xml:space="preserve">
+    <value>Невозможно подтвердить регистрацию</value>
+  </data>
+  <data name="ConfirmAccountSuccess" xml:space="preserve">
+    <value>Ваша регистрация подтверждена. Теперь вы можете</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Подтвердите пароль</value>
+  </data>
+  <data name="ConfirmSent" xml:space="preserve">
+    <value>Подтверждение отправлено</value>
+  </data>
+  <data name="CorrectErrors" xml:space="preserve">
+    <value>Пожалуйста, исправьте следующие ошибки:</value>
+  </data>
+  <data name="EditAccount" xml:space="preserve">
+    <value>Изменить личные данные</value>
+  </data>
+  <data name="EmailAddress" xml:space="preserve">
+    <value>E-mail адрес</value>
+  </data>
+  <data name="EmailAddressExist" xml:space="preserve">
+    <value>Аккаунт уже существует.</value>
+  </data>
+  <data name="EmailAddressInvalid" xml:space="preserve">
+    <value>Неправильный адрес электронной почты.</value>
+  </data>
+  <data name="EmailAddressRequired" xml:space="preserve">
+    <value>E-mail адрес необходим</value>
+  </data>
+  <data name="First" xml:space="preserve">
+    <value>Первая</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="FirstNameError" xml:space="preserve">
+    <value>Имя требуется.</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Забыли пароль</value>
+  </data>
+  <data name="ForgottenPasswordQuestion" xml:space="preserve">
+    <value>Забыли пароль?</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Главная</value>
+  </data>
+  <data name="Intro" xml:space="preserve">
+    <value>Этот сайт является примером локализованного, многоязычный сайт построен с помощью веб-страниц ASP.NET,.</value>
+  </data>
+  <data name="Last" xml:space="preserve">
+    <value>Последний</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Фамилия</value>
+  </data>
+  <data name="LastNameError" xml:space="preserve">
+    <value>Фамилия требуется.</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Войти</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Выход</value>
+  </data>
+  <data name="LogoutMessage" xml:space="preserve">
+    <value>Вы вышли из сайта.</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Следующая</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="PasswordRequired" xml:space="preserve">
+    <value>Пароль не требуется.</value>
+  </data>
+  <data name="PasswordReset" xml:space="preserve">
+    <value>Изменить пароль</value>
+  </data>
+  <data name="PasswordsNoMatch" xml:space="preserve">
+    <value>Пароли не совпадают.</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>Номер телефона</value>
+  </data>
+  <data name="PhoneNumberError" xml:space="preserve">
+    <value>Телефонный номер необходим.</value>
+  </data>
+  <data name="Pictures" xml:space="preserve">
+    <value>Фотографии</value>
+  </data>
+  <data name="PostedBy" xml:space="preserve">
+    <value>Автор</value>
+  </data>
+  <data name="PostProperty" xml:space="preserve">
+    <value>Разместить объявление</value>
+  </data>
+  <data name="PreferedLanguage" xml:space="preserve">
+    <value>Предпочитаемый язык</value>
+  </data>
+  <data name="Prev" xml:space="preserve">
+    <value>Предыдущая</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Цена</value>
+  </data>
+  <data name="PropertyInfo" xml:space="preserve">
+    <value>Информация о недвижимости</value>
+  </data>
+  <data name="PropertySearch" xml:space="preserve">
+    <value>Поиск недвижимости</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Регистрация</value>
+  </data>
+  <data name="RegisterNewAccount" xml:space="preserve">
+    <value>Зарегистрировать новый аккаунт</value>
+  </data>
+  <data name="RegistrationInstructionEmailed" xml:space="preserve">
+    <value>Мы отправили письмо с инструкциями о том, как активировать свой аккаунт по электронному адресу вы предоставили.</value>
+  </data>
+  <data name="ReturnHome" xml:space="preserve">
+    <value>Вернуться на главную страницу</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Поиск</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="ThankYouRegistration" xml:space="preserve">
+    <value>Спасибо за регистрацию</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="MyProperties" xml:space="preserve">
+    <value>Мои объявления</value>
+  </data>
+  <data name="AptNo" xml:space="preserve">
+    <value>Номер квартиры</value>
+  </data>
+  <data name="BathroomNotNeg" xml:space="preserve">
+    <value>Число Ваных комнат не может быть отрицательным</value>
+  </data>
+  <data name="BedroomNotNeg" xml:space="preserve">
+    <value>Число Спальных комнат не может быть отрицательным</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Изменить пароль</value>
+  </data>
+  <data name="ChangesSaved" xml:space="preserve">
+    <value>Ваши изменения были сохранены</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>Город</value>
+  </data>
+  <data name="CityNotEmpty" xml:space="preserve">
+    <value>Город не может быть пустым</value>
+  </data>
+  <data name="ClickViewProperty" xml:space="preserve">
+    <value>Нажмите здесь, чтобы увидеть вашу объявление</value>
+  </data>
+  <data name="ComingSoon" xml:space="preserve">
+    <value>Скоро</value>
+  </data>
+  <data name="ConfirmNewPassword" xml:space="preserve">
+    <value>Подтвердите новый пароль</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>Страна</value>
+  </data>
+  <data name="CountryNotEmpty" xml:space="preserve">
+    <value>Страна не может быть пустой</value>
+  </data>
+  <data name="CurrentPassword" xml:space="preserve">
+    <value>Текущий пароль</value>
+  </data>
+  <data name="CurrentPasswordRequired" xml:space="preserve">
+    <value>Текущий пароль требуется.</value>
+  </data>
+  <data name="DateTime" xml:space="preserve">
+    <value>Дата / время</value>
+  </data>
+  <data name="EnterAddress" xml:space="preserve">
+    <value>Введите адрес</value>
+  </data>
+  <data name="LivingArea" xml:space="preserve">
+    <value>Жилая плошадь (кв. фут)</value>
+  </data>
+  <data name="LivingAreaNotNeg" xml:space="preserve">
+    <value>Площадь не может быть отрицательной</value>
+  </data>
+  <data name="ManagePictures" xml:space="preserve">
+    <value>Управление фотографиями</value>
+  </data>
+  <data name="MinMaxPrice" xml:space="preserve">
+    <value>Мин / Макс Цена</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>Новый пароль</value>
+  </data>
+  <data name="PasswordNoMatch" xml:space="preserve">
+    <value>Пароли не совпадают.</value>
+  </data>
+  <data name="PasswordNotBlank" xml:space="preserve">
+    <value>Пароль не может быть пустым.</value>
+  </data>
+  <data name="PriceHistory" xml:space="preserve">
+    <value>История цени</value>
+  </data>
+  <data name="PriceNotNeg" xml:space="preserve">
+    <value>Цена не может быть отрицательной</value>
+  </data>
+  <data name="PropertyPostedMessage" xml:space="preserve">
+    <value>Ваша недвижимость была размещена</value>
+  </data>
+  <data name="PropertyStatus" xml:space="preserve">
+    <value>Статус недвижимости</value>
+  </data>
+  <data name="PropertyType" xml:space="preserve">
+    <value>Тип недвижимости</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Запомнить меня на этом компьютере?</value>
+  </data>
+  <data name="Required" xml:space="preserve">
+    <value>Обязательный.</value>
+  </data>
+  <data name="State" xml:space="preserve">
+    <value>Область</value>
+  </data>
+  <data name="StateNotEmpty" xml:space="preserve">
+    <value>Область не может быть пустой</value>
+  </data>
+  <data name="Street" xml:space="preserve">
+    <value>Улица</value>
+  </data>
+  <data name="StreetNotEmpty" xml:space="preserve">
+    <value>Улица не может быть пустой.</value>
+  </data>
+  <data name="UnableChangePassword" xml:space="preserve">
+    <value>Невозможно изменить пароль.</value>
+  </data>
+  <data name="UnableLogIn" xml:space="preserve">
+    <value>Невозможно воити</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Имя пользователя</value>
+  </data>
+  <data name="UsernameNotBlank" xml:space="preserve">
+    <value>Имя пользователя не может быть пустым.</value>
+  </data>
+  <data name="UsernameRequired" xml:space="preserve">
+    <value>Имя пользователя требуется.</value>
+  </data>
+  <data name="Zipcode" xml:space="preserve">
+    <value>Почтовый индекс</value>
+  </data>
+  <data name="ZipNotEmpty" xml:space="preserve">
+    <value>Почтовый индекс не может быть пустым.</value>
+  </data>
+  <data name="AddFile" xml:space="preserve">
+    <value>Добавить файл</value>
+  </data>
+  <data name="LanguagePreference" xml:space="preserve">
+    <value>Язык предпочтения</value>
+  </data>
+  <data name="Post" xml:space="preserve">
+    <value>Разместить</value>
+  </data>
+  <data name="QuickSearchMessage" xml:space="preserve">
+    <value>Искать по названию Улицы,Города или Почтового Индекса</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Добро пожаловать</value>
+  </data>
+</root>

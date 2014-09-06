@@ -1,0 +1,8 @@
+﻿@using Resources;
+@{Page.Title = @LangResource.Login;}
+@{
+WebSecurity.Logout();
+}
+<h1>@LangResource.Logout</h1>
+<p>@LangResource.LogoutMessage</p>
+<p><a href="@Href("~/Default")">@LangResource.ReturnHome</a></p>

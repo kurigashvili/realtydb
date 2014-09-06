@@ -1,0 +1,246 @@
+/* General Styles
+---------------------------------*/
+*, html, body {
+margin: 0px;
+padding: 0px;
+}
+body {
+background-color:#efefef;
+color: #333;
+font-family: Verdana, Helvetica, Sans-Serif;
+font-size: .75em;
+}
+a:link {
+color: #3B6FC5;
+text-decoration: none;
+}
+a:visited {
+color: #3B6FC5;
+text-decoration: none;
+}
+a:hover {
+color: #f30303;
+text-decoration: none;
+}
+h1, h2 {
+margin-bottom: 10px;
+}
+input, select
+{
+padding: 5px;
+}
+input[type="text"]
+{
+border: 1px solid #cdcdcd;
+}
+/* Layout
+---------------------------------*/
+#page {
+margin: 0 auto;
+width: 960px;
+background-color: #fff;
+}
+#header {
+height: 60px;
+}
+#content, #footer {
+border-top: 1px solid #cdcdcd;
+clear: both;
+margin: 0px 10px 0px 10px;
+padding: 20px;
+}
+#footer {
+color:#cdcdcd;
+padding: 10px;
+text-align: center;
+}
+.logo a {
+float: left;
+margin: 15px;
+font-size: 3em;
+}
+#categories {
+float:left;
+width:150px;
+}
+#main {
+float:right;
+width: 720px;
+margin-bottom: 20px;
+border-left: 1px solid #cdcdcd;
+padding-left:20px;
+}
+
+#categories ul {
+border-bottom: 1px solid #cdcdcd;
+margin-bottom: 20px;
+}
+#categories ul li {
+list-style: none;
+border-top: 1px solid #cdcdcd;
+margin: 0;
+padding: 10px;
+}
+#categories ul li:hover {
+background-color: #ddd;
+}
+
+/*
+  Hide radio button (the round disc)
+  we will use just the label to create pushbutton effect
+*/
+input[type=radio] {
+    /**display:none;*/
+    margin:10px;
+    opacity: 0; 
+}
+ 
+/*
+  Change the look'n'feel of labels (which are adjacent to radiobuttons).
+  Add some margin, padding to label
+*/
+input[type=radio] + label {
+    display:inline-block;
+    margin:-2px;
+    padding: 4px 12px;
+    background-color: #e7e7e7;
+    border-color: #ddd;
+}
+/*
+ Change background color for label next to checked radio button
+ to make it look like highlighted button
+*/
+input[type=radio]:checked + label { 
+   background-image: none;
+    background-color:#d0d0d0;
+}
+
+#language  {
+float: right;
+margin-right: 10px;
+}
+
+/* Account Forms
+---------------------------------*/
+.accountForm label {
+font-weight: bold;
+padding-right: 5px;
+}
+.accountForm p {
+padding: 5px 0px 5px 0px;
+}
+input[type="password"]
+{
+border: 1px solid #cdcdcd;
+}
+/* Validation
+---------------------------------*/
+.validation-summary-errors,
+span.field-validation-error {
+color: #FF0000;
+}
+input.field-validation-error {
+border: 1px solid #FF0000;
+background-color: #FFCCCC;
+}
+
+/* Form styles */
+fieldset { margin: 0.5em 0; padding: 0.4em; }
+fieldset div { clear: left; padding: 0.3em 0; }
+fieldset label { float: left; width: 7em; text-align: right; padding-right: 0.4em;}
+legend { text-transform:uppercase; font-weight:bold; }
+/* Validation styles */
+.validation-summary-errors { font-weight: bold; color: #FF0000; }
+span.field-validation-error { color: #FF0000; }
+input.field-validation-error { border: 1px solid #FF0000; background-color: #FFCCCC; }
+
+#accountSummary{
+float: right;
+margin-right: 15px;
+margin-bottom: 5px;  
+}
+
+input{
+    width: 150px;
+}
+select {
+    width: 160px;
+}
+
+input[name=lang]{
+    width: 0px;
+}
+
+#street_number{
+    width: 50px;
+}
+#autocomplete{
+    width: 280px;
+    border-style: solid;
+    border-width: thin;
+    border-color: #2D3136;
+}
+.accountForm label{
+    float: left;
+}
+table {
+   padding-bottom: 15px;
+}
+
+#minprice{
+    width: 65px;
+}
+
+#maxprice{
+    width: 65px;
+}
+
+#query{
+    width: 400px;
+}
+
+#queryForm{
+    background-image: url('../images/banner.jpg');
+    padding-left: 75px;
+    padding-right: 75px;
+    padding-top: 165px;
+    padding-bottom: 165px;
+    
+}
+
+#rememberMe{
+   width: 10px;
+   margin-top: 10px;
+   margin-bottom: 10px;  
+}
+
+#propertyDetails th,
+#propertyDetails td {
+    padding-left: 125px;
+} 
+.propertyMain {
+    font-size: large;
+}
+.status{
+    color: #b02a2a;
+    font-size: larger;
+}
+#postedByTable th,
+#postedByTable td{
+    padding-bottom: 2px;
+}
+#postedByTable th,
+#postedByTable td
+{
+    padding-left: 125px;
+}
+
+#propertyBulletPoints td{
+   padding-left: 125px;
+   padding-bottom: 2px; 
+}
+
+#manageimages{
+    padding-left: 50px;
+    font-size: large;
+    }

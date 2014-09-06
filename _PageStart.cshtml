@@ -1,0 +1,16 @@
+﻿@{
+Layout = "~/Shared/Layouts/_Layout.cshtml";
+try{
+  UICulture=Culture=Session["PreferedLanguage"].ToString();;
+}
+catch{
+  UICulture=Culture=App.Language;
+}
+
+    if(WebSecurity.IsAuthenticated){
+     int UserID = WebSecurity.GetUserId(WebSecurity.CurrentUserName);
+    //UICulture=Culture=App.Language=Realty.User.PreferedLanguage(UserID);
+    UICulture=Culture=Realty.User.PreferedLanguage(UserID);
+    }
+    
+}

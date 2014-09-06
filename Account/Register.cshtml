@@ -1,0 +1,103 @@
+﻿@using Resources;
+@using Realty;
+@{
+Page.Title = @LangResource.Register;
+}
+@{
+List<SelectListItem> languageList=Language.LanguageList();
+
+var firstname="";var lastname="";
+var phone="";var email="";
+var languageid="";var password1 ="";var password2 = "";
+if(IsPost)
+{
+WebSecurity.Logout();
+try{AntiForgery.Validate();}
+catch{}
+firstname=Request["firstname"];
+lastname=Request["lastname"];
+phone=DataConversion.getNumericOnly(Request["phone"]);
+email = Request["email"];
+languageid = Request["languageid"];
+password1 = Request["password1"];
+password2 = Request["password2"];
+
+// Validation
+if (firstname.IsEmpty()) { ModelState.AddError("firstname", @LangResource.FirstNameError);}
+if (lastname.IsEmpty()) {ModelState.AddError("lastname", @LangResource.LastNameError);}
+if (phone.IsEmpty()) {ModelState.AddError("phone", @LangResource.PhoneNumberError);}
+if (email.IsEmpty()) {ModelState.AddError("email", @LangResource.EmailAddressRequired);}
+if (!Realty.Validation.IsValidEmail(email)){ModelState.AddError("email",@LangResource.EmailAddressInvalid);}
+if (password1.IsEmpty()) {ModelState.AddError("password1", @LangResource.PasswordRequired);}
+if(WebSecurity.UserExists(email)){ModelState.AddError("email", @LangResource.EmailAddressExist);}
+if(password1 != password2){ModelState.AddError("password1", @LangResource.PasswordsNoMatch);}
+
+// Create Account
+if(ModelState.IsValid)
+{
+var token = WebSecurity.CreateUserAndAccount(email, password1,
+ propertyValues: new { FirstName = firstname,LastName=lastname, 
+ PhoneNumber=phone, LanguageId = languageid } ,
+ requireConfirmationToken: false);
+ /*
+ // Generate confirmation link URL
+var hostUrl = Request.Url.GetComponents(UriComponents.SchemeAndServer,
+UriFormat.Unescaped);
+var confirmAccountUrl = hostUrl +
+"/Account/confirmAccount?confirmationToken=" +
+HttpUtility.UrlEncode(token);
+// Send confirmation email
+
+String subject = "Thank we for registering - " + email;
+String body = "Please visit <a href='" + confirmAccountUrl + "'>" + confirmAccountUrl +
+"</a> to activate wer account.";
+
+WebMail.Send(to: email,
+subject: subject,
+body: body
+);
+Response.Redirect("~/Account/confirmSent");
+*/
+Response.Redirect("~/Account/Login");
+}}}
+<h1>@LangResource.RegisterNewAccount</h1>
+<form action="Register?@Request.QueryString" method="post" class="accountForm">
+@Html.ValidationSummary()
+@AntiForgery.GetHtml()
+<p>
+@Html.Label(@LangResource.FirstName, "firstname")<br />
+@Html.TextBox("firstname", firstname)
+@Html.ValidationMessage("firstname")
+</p>
+<p>
+@Html.Label(@LangResource.LastName, "lastname")<br />
+@Html.TextBox("lastname", lastname)
+@Html.ValidationMessage("lastname")
+</p>
+<p>
+@Html.Label(@LangResource.PhoneNumber, "phone")<br />
+@Html.TextBox("phone", phone)
+@Html.ValidationMessage("phone")
+</p>
+<p>
+@Html.Label(@LangResource.EmailAddress, "email")<br />
+@Html.TextBox("email", email)
+@Html.ValidationMessage("email")
+</p>
+<p>
+@Html.Label(@LangResource.PreferedLanguage, "languageid")<br />
+@Html.DropDownList("languageid", null, languageList)
+</p>
+<p>
+@Html.Label(@LangResource.Password, "password1")<br />
+@Html.Password("password1", password1)
+@Html.ValidationMessage("password1")
+</p>
+<p>
+@Html.Label(@LangResource.ConfirmPassword, "password2")<br />
+@Html.Password("password2", password2)
+</p>
+<p>
+<input type="submit" value="@LangResource.Register" />
+</p>
+</form>

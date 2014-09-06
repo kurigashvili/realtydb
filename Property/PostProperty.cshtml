@@ -1,0 +1,157 @@
+﻿@using Resources;
+@using Realty;
+@{Page.Title = @LangResource.PostProperty;}
+@{
+UICulture=App.Language;
+IHtmlString confirmMessage=null;
+
+int UserID = WebSecurity.GetUserId(WebSecurity.CurrentUserName);      
+List<SelectListItem> propertyTypeList=Property.PropertyType(Culture,1,false);
+List<SelectListItem> propertyStatusList=Property.PropertyStatus(Culture,1,false); 
+
+string street_number="";
+string route="";
+string address2="";
+string locality="";
+string administrative_area_level_1="";
+string postal_code="";
+string country="";
+int bedroom=0;
+int bathroom=0;
+int feet=0;
+decimal price=0;
+int propertytype=1;
+int propertystatus=1;
+if(IsPost)
+{
+//fill variables
+street_number=Request["street_number"];
+route=Request["route"];
+address2=Request["address2"];
+locality=Request["locality"];
+administrative_area_level_1=Request["administrative_area_level_1"];
+postal_code=Request["postal_code"];
+country=Request["country"];
+bedroom=DataConversion.tryCastInt(bedroom,"bedroom");
+bathroom=DataConversion.tryCastInt(bathroom,"bathroom");
+feet=DataConversion.tryCastInt(feet,"feet");
+price=DataConversion.tryCastDecimal(price,"price");
+propertytype=DataConversion.tryCastInt(propertytype,"propertytype");
+propertystatus=DataConversion.tryCastInt(propertystatus,"propertystatus");
+// validation
+if (route.IsEmpty()) { ModelState.AddError("route", LangResource.StreetNotEmpty);}
+if (locality.IsEmpty()) { ModelState.AddError("locality", LangResource.CityNotEmpty);}
+if (administrative_area_level_1.IsEmpty()) { ModelState.AddError("administrative_area_level_1", LangResource.StateNotEmpty);}
+if (postal_code.IsEmpty()) { ModelState.AddError("postal_code", LangResource.ZipNotEmpty);}
+if (country.IsEmpty()) { ModelState.AddError("country", LangResource.CountryNotEmpty);}
+if (bedroom<0) { ModelState.AddError("bedroom", LangResource.BedroomNotNeg);}
+if (bathroom<0) { ModelState.AddError("bathroom", LangResource.BathroomNotNeg);}
+if (feet<0) { ModelState.AddError("feet", LangResource.LivingAreaNotNeg);}
+if (price<0) { ModelState.AddError("price", LangResource.PriceNotNeg);}
+
+if(ModelState.IsValid){
+ Property p = new Property(street_number,route,address2,locality,administrative_area_level_1,
+ postal_code,country,price,bedroom,bathroom,feet,propertytype,propertystatus,UserID);
+
+int LastId = (int)p.Add().LastId;
+
+      string guids=null; var fileName = "";
+      int numFiles = Request.Files.Count;
+      for(int i =0; i < numFiles; i++) {
+              dynamic uploadedFile = Request.Files[i]; 
+              try{
+              Media.uploadImage(uploadedFile,ref guids); 
+              }
+               catch{}    
+       }
+
+        if(guids!=null)
+        { Media.uploadImages("'"+  guids.Remove(guids.Length -1, 1) + "'",LastId);}
+
+
+confirmMessage=Realty.Html.ConfirmationMessage(LangResource.PropertyPostedMessage,LangResource.ClickViewProperty,LastId);
+
+}
+}
+}
+<h1>@LangResource.PostProperty</h1>
+@Html.ValidationSummary()
+@confirmMessage
+<form action="PostProperty?@Request.QueryString" method="post" enctype="multipart/form-data" class="accountForm">
+@RenderPage("~/Property/_AddressSearch.cshtml")
+<table id="address">
+<tr>
+    <th colspan="2">@LangResource.Address</th>
+</tr>
+<tr>
+       <th id="locationField" colspan="2">
+       <input id="autocomplete" placeholder=@LangResource.EnterAddress 
+         onfocus="geolocate()"  type="text"></input> 
+       <th>
+</tr>
+<tr>
+       <td>@Html.Label(LangResource.Street, "street_number")</td>
+       <td>@Html.TextBox("street_number", street_number, new { @disabled = "true" })
+           @Html.TextBox("route", route,new { @disabled = "true" })</td> 
+</tr>
+<tr>
+      <td>@Html.Label(LangResource.AptNo, "address2")</td>
+      <td>@Html.TextBox("address2", address2,new { @disabled = "true" })</td>
+</tr>
+<tr>
+      <td>@Html.Label(LangResource.City, "locality")</td>
+      <td>@Html.TextBox("locality", locality,new { @disabled = "true" })</td>
+</tr>
+<tr>
+     <td>@Html.Label(LangResource.City, "administrative_area_level_1")</td>
+     <td>@Html.TextBox("administrative_area_level_1", administrative_area_level_1,new { @disabled = "true" })</td>
+</tr>
+<tr>
+     <td>@Html.Label(LangResource.Zipcode, "postal_code")</td>
+     <td>@Html.TextBox("postal_code", postal_code,new { @disabled = "true" })</td>
+</tr>
+<tr>
+     <td>@Html.Label(LangResource.Country, "country")</td>
+     <td>@Html.TextBox("country", country,new { @disabled = "true" })</td>    
+</tr>
+    </table>
+<table id="propertyinfo">
+<tr>
+    <th colspan="2">@LangResource.PropertyInfo</th>
+</tr>
+<tr>
+    <th>@Html.Label(LangResource.Bedrooms, "bedroom")</th>
+    <th>@Html.Label(LangResource.Bathrooms, "bathroom")</th>
+</tr>
+<tr>
+    <td>@Html.TextBox("bedroom", bedroom,new { @type = "number" })</td>
+    <td>@Html.TextBox("bathroom", bathroom,new { @type = "number" })</td>
+</tr>
+<tr>
+     <th>@Html.Label(LangResource.LivingArea, "feet")</th>
+     <th>@Html.Label(LangResource.Price+" $", "price")</th>
+</tr>
+<tr>
+     <td>@Html.TextBox("feet", feet,new { @type = "number" })</td>
+     <td>@Html.TextBox("price", price,new { @type = "number" })</td>
+</tr>
+<tr>
+     <th>@Html.Label(LangResource.PropertyType, "propertytype")</th>
+     <th>@Html.Label(LangResource.PropertyStatus, "propertystatus")</th>
+</tr>
+<tr>
+     <td>@Html.DropDownList("propertytype", null, propertyTypeList)</td>
+     <td>@Html.DropDownList("propertystatus", null, propertyStatusList)</td>
+</tr>
+<tr>
+    <th colspan="2" style="padding-top: 10px;">@LangResource.Pictures<br>(PNG, JPEG)</th>
+</tr>
+<tr>
+    <td colspan="2">@Microsoft.Web.Helpers.FileUpload.GetHtml(initialNumberOfFiles:1,allowMoreFilesToBeAdded:true,includeFormTag:false,addText:LangResource.AddFile,uploadText:LangResource.PostProperty)</td>
+</tr>
+</table>
+<p>
+<input type="submit" value="@LangResource.Post" />
+</p>
+</form>
+    

@@ -1,0 +1,20 @@
+﻿@using Resources;
+@if(WebSecurity.IsAuthenticated) {
+<ul>
+<li><a href="@Href("~/Default")">@LangResource.Home</a></li>
+<li><a href="@Href("~/Search/Search")">@LangResource.Search</a></li>
+<li><a href="@Href("~/Property/PostProperty")">@LangResource.PostProperty</a></li>
+<li><a href="@Href("~/Account/Register")">@LangResource.Register</a></li>
+<li><a href="@Href("~/Account/Logout")">@LangResource.Logout</a></li>
+</ul>
+} else{
+<ul>
+<li><a href="@Href("~/Default")">@LangResource.Home</a></li>
+<li><a href="@Href("~/Search/Search")">@LangResource.Search</a></li>
+<li><a href="@Href("~/Property/PostProperty")">@LangResource.PostProperty</a></li>
+<li><a href="@Href("~/Account/Register")">@LangResource.Register</a></li>
+<li><a href="@Href("~/Account/Login")">@LangResource.Login</a></li>
+</ul>    
+
+
+}
